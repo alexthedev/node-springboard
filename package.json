@@ -1,0 +1,29 @@
+{
+  "name": "node-springboard",
+  "version": "0.0.5",
+  "description": "Node JS library for interacting with Springboard Retail API",
+  "main": "index.js",
+  "scripts": {
+		"test": "node test/all.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/alexthedev/node-springboard.git"
+  },
+  "keywords": [
+    "springboard",
+    "retail"
+  ],
+  "author": "Alex Nielsen",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alexthedev/node-springboard/issues"
+  },
+  "homepage": "https://github.com/alexthedev/node-springboard",
+	"dependencies" : {
+		"restler": "~3.2.2"
+	},
+  "devDependencies": {
+    "nodeunit": "0.8.2"
+  }
+}
