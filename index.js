@@ -206,6 +206,10 @@ module.exports = function(domain, user, password) {
 	this.updateItem = function(id, data, callback) {
 		request('items/' + id, 'putJson', data, callback);
 	}
+	
+	this.updateTicket = function(id, data, callback) {
+		request('sales/tickets/' + id, 'putJson', data, callback);
+	}
 
 	this.updateVendor = function(id, data, callback) {
 		request('purchasing/vendors/' + id, 'putJson', data, callback);

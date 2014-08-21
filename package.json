@@ -1,6 +1,6 @@
 {
   "name": "node-springboard",
-  "version": "0.0.5",
+  "version": "0.0.6",
   "description": "Node JS library for interacting with Springboard Retail API",
   "main": "index.js",
   "scripts": {
