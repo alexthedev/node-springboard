@@ -155,6 +155,11 @@ module.exports = function(domain, user, password) {
 	this.createVendorContact = function(vendorId, data, callback) {
 		request('purchasing/vendors/' + vendorId + '/contact', 'postJson', data, callback);
 	}
+	
+	this.getGiftCard = function(giftCardNumber, callback) {
+		data = data || {};
+		request('gift_cards/' + id, 'get', {}, callback);
+	}
 
 	this.getInventoryValues = function(data, callback) {
 		data = data || {};
