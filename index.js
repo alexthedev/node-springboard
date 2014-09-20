@@ -157,7 +157,6 @@ module.exports = function(domain, user, password) {
 	}
 	
 	this.getGiftCard = function(giftCardNumber, callback) {
-		data = data || {};
 		request('gift_cards/' + giftCardNumber, 'get', {}, callback);
 	}
 
