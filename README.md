@@ -111,7 +111,7 @@ Creates an address for a vendor.
 _Note: Undocumented API method_
 Creates a contact for a vendor.
 
-#####getGiftCard(id, callback)
+#####getGiftCard(giftCardNumber, callback)
 Gets gift card with the given number. Springboard throws an error if the gift card is not found.
 
 #####getInventoryValues(data, callback)
