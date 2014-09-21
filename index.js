@@ -178,7 +178,7 @@ module.exports = function(domain, user, password) {
 	}
 	
 	this.getItemByLookup = function(lookup, callback) {
-		request('items/lookup=' + lookup, 'get', {}, callback);
+		request('items/lookup_code=' + lookup, 'get', {}, callback);
 	}
 
 	this.getItemVendors = function(id, callback) {
