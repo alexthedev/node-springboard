@@ -176,6 +176,10 @@ module.exports = function(domain, user, password) {
 	this.getItem = function(id, callback) {
 		request('items/' + id, 'get', {}, callback);
 	}
+	
+	this.getItemByLookup = function(lookup, callback) {
+		request('items/lookup=' + lookup, 'get', {}, callback);
+	}
 
 	this.getItemVendors = function(id, callback) {
 		request('items/' + id + '/vendors', 'get', {}, callback);
