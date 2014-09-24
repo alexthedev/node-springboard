@@ -123,6 +123,12 @@ Gets inventory values for an item, grouped by location.
 #####getItem(id, callback)
 Retrieves an item based on its ID.
 
+#####getItemByLookup(lookup, callback)
+Retrieves an item based on its lookup code.
+
+#####getItemsByFilter(jsonFilter, callback)
+Retrieve items based on advanced JSON filter.
+
 #####getItemVendors(id, callback)
 Retrieves vendor records for a given item ID.
 

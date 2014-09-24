@@ -1,4 +1,5 @@
 var rest = require('restler');
+var Pager = require('./lib/pager');
 var BASE_URL, USER, PASSWORD;
 var HEADERS = null,
 	COOKIE_FILE = null,
@@ -20,7 +21,11 @@ var requestRaw = function(url, method, data, callback) {
 
 	var handleResponse = function(data, response) {
 		if(response.statusCode >= 400) {
-			callback(errorForStatus(response.statusCode), data);
+			if(typeof callback == 'function') {
+				callback(errorForStatus(response.statusCode), data);
+			} else {
+				callback.processPage(errorForStatus(response.statusCode),data);
+			}
 			return;
 		}
 
@@ -30,7 +35,12 @@ var requestRaw = function(url, method, data, callback) {
 			if (typeof data.path !== 'undefined') data.objectId = data.path.match(/[^\/]+$/)[0];
 
 		}
-		callback(null, data, response);
+		if(typeof callback == 'function') {
+			callback(null, data, response);
+		} else {
+			callback.processPage(null, data, response);
+		}
+
 	}
 
 	if(method === 'get') {
@@ -102,6 +112,15 @@ module.exports = function(domain, user, password) {
 	PASSWORD = password;
 	
 	getCookieFile();
+	
+	var convertArgsToArray = function(toConvert) {
+		arr = [];
+		for (i = 1; i < toConvert.length; i++) {
+			arr.push(toConvert[i]);
+		}
+
+		return arr.sort();
+	}
 	
 	this.createInventoryAdjustment = function(locationId, itemId, adjustmentReasonId, qtyAdjust, cost, data, callback) {
 		data = data || {};
@@ -180,7 +199,15 @@ module.exports = function(domain, user, password) {
 	this.getItemByLookup = function(lookup, callback) {
 		request('items/lookup_code=' + lookup, 'get', {}, callback);
 	}
-
+	
+	this.getItemsByFilter = function(jsonFilter, callback) {
+		filterPager = new Pager(getItemsByFilterRaw, convertArgsToArray(arguments));
+	}
+	
+	this.getItemsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
+		request('items?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
+	}
+	
 	this.getItemVendors = function(id, callback) {
 		request('items/' + id + '/vendors', 'get', {}, callback);
 	}
@@ -228,4 +255,3 @@ module.exports = function(domain, user, password) {
 	}
 	return this;
 }
-
