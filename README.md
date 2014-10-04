@@ -141,6 +141,9 @@ Retrieves ticket lines based on a ticket ID.
 #####getVendor(id, callback)
 Retrieves a vendor based on its ID.
 
+#####getVendorsByFilter(jsonFilter, callback)
+Retrieve vendors based on advanced JSON filter.
+
 #####searchItems(searchTerm, page, perPage, callback)
 A basic way to query items using Springboard's standard search. Springboard has a sophisticated query system that is not yet implemented in this module.
 

@@ -224,6 +224,14 @@ module.exports = function(domain, user, password) {
 		request('purchasing/vendors/' + id, 'get', {}, callback);
 	}
 
+	this.getVendorsByFilter = function(jsonFilter, callback) {
+		filterPager = new Pager(getVendorsByFilterRaw, convertArgsToArray(arguments));
+	}
+	
+	this.getVendorsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
+		request('purchasing/vendors?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
+	}
+	
 	// Searches items based on a search term
 	this.searchItems = function(searchTerm, page, perPage, callback) {
 		data = {'query': searchTerm.replace(' ', '+'), 'page': page, 'per_page': perPage};
