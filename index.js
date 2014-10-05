@@ -115,7 +115,7 @@ module.exports = function(domain, user, password) {
 	
 	var convertArgsToArray = function(toConvert) {
 		arr = [];
-		for (i = 1; i < toConvert.length; i++) {
+		for (i = 0; i < toConvert.length; i++) {
 			arr.push(toConvert[i]);
 		}
 
@@ -223,7 +223,7 @@ module.exports = function(domain, user, password) {
 	this.getVendor = function(id, callback) {
 		request('purchasing/vendors/' + id, 'get', {}, callback);
 	}
-
+	
 	this.getVendorsByFilter = function(jsonFilter, callback) {
 		filterPager = new Pager(getVendorsByFilterRaw, convertArgsToArray(arguments));
 	}
@@ -231,7 +231,7 @@ module.exports = function(domain, user, password) {
 	this.getVendorsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
 		request('purchasing/vendors?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
 	}
-	
+
 	// Searches items based on a search term
 	this.searchItems = function(searchTerm, page, perPage, callback) {
 		data = {'query': searchTerm.replace(' ', '+'), 'page': page, 'per_page': perPage};
