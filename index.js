@@ -174,9 +174,21 @@ module.exports = function(domain, user, password) {
 	this.createVendorContact = function(vendorId, data, callback) {
 		request('purchasing/vendors/' + vendorId + '/contact', 'postJson', data, callback);
 	}
+
+	this.getCustomField = function(id, callback) {
+		request('custom_fields/' + id, 'get', {}, callback);
+	}
 	
 	this.getGiftCard = function(giftCardNumber, callback) {
 		request('gift_cards/' + giftCardNumber, 'get', {}, callback);
+	}
+	
+	this.getInventoryAdjustmentsByFilter = function(jsonFilter, callback) {
+		filterPager = new Pager(getInventoryAdjustmentsByFilterRaw, convertArgsToArray(arguments));
+	}
+	
+	this.getInventoryAdjustmentsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
+		request('inventory/adjustments?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
 	}
 
 	this.getInventoryValues = function(data, callback) {
@@ -211,6 +223,10 @@ module.exports = function(domain, user, password) {
 	this.getItemVendors = function(id, callback) {
 		request('items/' + id + '/vendors', 'get', {}, callback);
 	}
+	
+	this.getTemplate = function(id, callback) {
+		request('templates/' + id + '.html.liquid');
+	}
 
 	this.getTicket = function(id, callback) {
 		request('sales/tickets/' + id, 'get', {}, callback);
@@ -218,6 +234,14 @@ module.exports = function(domain, user, password) {
 
 	this.getTicketLines = function(id, callback) {
 		request('sales/tickets/' + id + '/lines', 'get', {}, callback);
+	}
+	
+	this.getTicketsByFilter = function(jsonFilter, callback) {
+		filterPager = new Pager(getTicketsByFilterRaw, convertArgsToArray(arguments));
+	}
+	
+	this.getTicketsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
+		request('sales/tickets?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
 	}
 
 	this.getVendor = function(id, callback) {
