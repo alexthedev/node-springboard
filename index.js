@@ -225,7 +225,7 @@ module.exports = function(domain, user, password) {
 	}
 	
 	this.getTemplate = function(id, callback) {
-		request('templates/' + id + '.html.liquid');
+		request('templates/' + id + '.html.liquid', 'get', {}, callback);
 	}
 
 	this.getTicket = function(id, callback) {
