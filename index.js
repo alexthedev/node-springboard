@@ -205,7 +205,7 @@ module.exports = function(domain, user, password) {
 	}
 
 	this.getItem = function(id, callback) {
-		request('items/' + id, 'get', {}, callback);
+		request('items/' + id + '?_include[]=primary_vendor&_include[]=vendor_details', 'get', {}, callback);
 	}
 	
 	this.getItemByLookup = function(lookup, callback) {
@@ -217,7 +217,7 @@ module.exports = function(domain, user, password) {
 	}
 	
 	this.getItemsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
-		request('items?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
+		request('items?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber + '&_include[]=primary_vendor&_include[]=vendor_details', 'get', {}, pager);
 	}
 	
 	this.getItemVendors = function(id, callback) {
@@ -229,11 +229,11 @@ module.exports = function(domain, user, password) {
 	}
 
 	this.getTicket = function(id, callback) {
-		request('sales/tickets/' + id, 'get', {}, callback);
+		request('sales/tickets/' + id + '?_include[]=customer', 'get', {}, callback);
 	}
 
 	this.getTicketLines = function(id, callback) {
-		request('sales/tickets/' + id + '/lines', 'get', {}, callback);
+		request('sales/tickets/' + id + '/lines?_include[]=item&per_page=1000', 'get', {}, callback);
 	}
 	
 	this.getTicketsByFilter = function(jsonFilter, callback) {
@@ -241,7 +241,7 @@ module.exports = function(domain, user, password) {
 	}
 	
 	this.getTicketsByFilterRaw = function(pageNumber, perPage, jsonFilter, pager) {
-		request('sales/tickets?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber, 'get', {}, pager);
+		request('sales/tickets?_filter=' + encodeURIComponent(JSON.stringify(jsonFilter)) + "&per_page=" + perPage + "&page=" + pageNumber + "&_include[]=customer", 'get', {}, pager);
 	}
 
 	this.getVendor = function(id, callback) {
