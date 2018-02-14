@@ -6,7 +6,7 @@ Node JS Library for Interacting with Springboard Retail API. Uses the [restler] 
 
 This is a work on progress. I'll be adding more methods over time.
 
-This is my first foray into Node. Forgive the lack of tests, I'm one of "those" people.
+This is my first foray into Node. Forgive the lack of tests.
 
 Installing and Configuring
 --------------------------
