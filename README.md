@@ -22,7 +22,7 @@ var springboard = require('node-springboard')('mydomain', 'myuser', 'mypassword'
 
 Usage
 -----
-####Basic Example
+#### Basic Example
 ```javascript
 var springboard = require('node-springboard')('mydomain', 'myuser', 'mypassword');
 
@@ -37,15 +37,15 @@ springboard.getItem(100001, function(err, data, response) {
 });
 ```
 
-####General Use
+### General Use
 This module follows the Node callback convention of passing either null or an Error object as the first argument of the callback. See the basic example above.
 
 All functions in this module expect a callback that accepts three parameters: _err_, _data_, and _response_.
 
-#####Err
+### Err
 An Error object if there was a problem; null if not. Always check for this first in your callbacks.
 
-#####Data
+### Data
 Varies based on the method call. 
 
 Methods beginning with "create" will return a hash with a "path" and "objectId" value. For example:
@@ -62,13 +62,13 @@ springboard.createVendor('New Vendor', {'public_id': 'NEW'}, function(err, data,
 
 All other methods will return the JSON object returned by the Springboard API, easily accessible through dot notation or your preferred method of data access.
 
-#####Response
+### Response
 The raw response as returned by [restler](https://github.com/danwrong/restler). Refer to restler documentation for info on how to interact with this object. 
 
-####API
+### API
 As a general rule, API method signatures begin with data required by Springboard, then accept a hash parameter for other data, and finally method callback. I'm not fully sold on this design yet but it works. For now, only parameters that are not self explanatory are documented. 
 
-#####data parameter
+### data parameter
 The data parameter in the method calls is the catch all of capturing information not necessariliy required by the API. The following example creates an item that includes some custom fields:
 
 ```javascript
@@ -78,83 +78,80 @@ springboard.createItem(1.44, {'description': 'This is my description', 'custom':
 });
 ```
 
-#####createInventoryAdjustment(locationId, itemId, adjustmentReasonId, qtyAdjust, cost, data, callback)
-_Note: Undocumented API method._
+### createInventoryAdjustment(locationId, itemId, adjustmentReasonId, qtyAdjust, cost, data, callback)
+> _Note: Undocumented API method._  
+>Creates an inventory adjustment entry.  
+> _qtyAdjust_: The quantity adjustment to make to current on hand counts. NOT the on hand count.
 
-Creates an inventory adjustment entry.
+### createItem(cost, data, callback)
+> Creates an item. Cost is the only field required by Springboard. However, if you have custom fields that are required, you will have to provide those via the data parameter.
 
-_qtyAdjust_: The quantity adjustment to make to current on hand counts. NOT the on hand count.
+### createItemVendor(itemId, vendorId, data, callback)
+> _Note: Undocumented API method._  
+>Creates a vendor record for an item (sometimes called a source record).
 
-#####createItem(cost, data, callback)
-Creates an item. Cost is the only field required by Springboard. However, if you have custom fields that are required, you will have to provide those via the data parameter.
+### createTicket(data, callback)
+> Creates a sales ticket.
 
-#####createItemVendor(itemId, vendorId, data, callback)
-_Note: Undocumented API method._
-
-Creates a vendor record for an item (sometimes called a source record).
-
-#####createTicket(data, callback)
-Creates a sales ticket.
-
-#####createTicketLine(ticketId, data, callback)
-_Note: The Springboard API does not currently provide the newly created ID for a ticket line. Not sure why_
+### createTicketLine(ticketId, data, callback)
+> _Note: The Springboard API does not currently provide the newly created ID for a ticket line. Not sure why_
 Creates a line for a given ticket ID.
 
-#####createVendor(name, data, callback)
-Creates a vendor.
+### createVendor(name, data, callback)
+> Creates a vendor.
 
-#####createVendorAddress(vendorId, city, state, country, postalCode, data, callback)
-_Note: Undocumented API method_
-Creates an address for a vendor. 
+### createVendorAddress(vendorId, city, state, country, postalCode, data, callback)
+>_Note: Undocumented API method_  
+>Creates an address for a vendor. 
 
-#####createVendorContact(vendorId, data, callback)
-_Note: Undocumented API method_
-Creates a contact for a vendor.
+### createVendorContact(vendorId, data, callback)
+>_Note: Undocumented API method_  
+>Creates a contact for a vendor.
 
-#####getGiftCard(giftCardNumber, callback)
-Gets gift card with the given number. Springboard throws an error if the gift card is not found.
+### getGiftCard(giftCardNumber, callback)
+>Gets gift card with the given number. Springboard throws an error if the gift card is not found.
 
-#####getInventoryValues(data, callback)
-Gets inventory values. Recommend using convenience methods for retrieving inventory values for a given item ID by location.
+### getInventoryValues(data, callback)
+>Gets inventory values. Recommend using convenience methods for retrieving inventory values for a given item ID by location.
 
-#####getInventoryValuesByLocation(itemId, data, callback)
-Gets inventory values for an item, grouped by location.
+### getInventoryValuesByLocation(itemId, data, callback)
+>Gets inventory values for an item, grouped by location.
 
-#####getItem(id, callback)
-Retrieves an item based on its ID.
+### getItem(id, callback)
+>Retrieves an item based on its ID.
 
-#####getItemByLookup(lookup, callback)
-Retrieves an item based on its lookup code.
+### getItemByLookup(lookup, callback)
+>Retrieves an item based on its lookup code.
 
-#####getItemsByFilter(jsonFilter, callback)
-Retrieve items based on advanced JSON filter.
+### getItemsByFilter(jsonFilter, callback)
+>Retrieve items based on advanced JSON filter.
 
-#####getItemVendors(id, callback)
-Retrieves vendor records for a given item ID.
+### getItemVendors(id, callback)
+>Retrieves vendor records for a given item ID.
 
-#####getTicket(id, callback)
-Retrieves a ticket based on its ID.
+### getTicket(id, callback)
+>Retrieves a ticket based on its ID.
 
-#####getTicketLines(id, callback)
-Retrieves ticket lines based on a ticket ID.
+### getTicketLines(id, callback)
+>Retrieves ticket lines based on a ticket ID.
 
-#####getVendor(id, callback)
-Retrieves a vendor based on its ID.
+### getVendor(id, callback)
+>Retrieves a vendor based on its ID.
 
-#####getVendorsByFilter(jsonFilter, callback)
-Retrieve vendors based on advanced JSON filter.
+### getVendorsByFilter(jsonFilter, callback)
+>Retrieve vendors based on advanced JSON filter.
 
-#####searchItems(searchTerm, page, perPage, callback)
-A basic way to query items using Springboard's standard search. Springboard has a sophisticated query system that is not yet implemented in this module.
+### searchItems(searchTerm, page, perPage, callback)
+>A basic way to query items using Springboard's standard search. Springboard has a sophisticated query system that is not yet implemented in this module.
 
-#####searchVendors(searchTerm, page, perPage, callback)
-A basic way to query vendors using Springboard's standard search. Springboard has a sophisticated query system that is not yet implemented in this module.
+### searchVendors(searchTerm, page, perPage, callback)
+>A basic way to query vendors using Springboard's standard search. Springboard has a sophisticated query system that is not yet implemented in this module.
 
-#####updateItem(id, data, callback)
-Update an item.
+### updateItem(id, data, callback)
+>Update an item.
 
-#####updateVendor(id, data, callback)
-Update a vendor.
+### updateVendor(id, data, callback)
+>Update a vendor.
 
 
 
